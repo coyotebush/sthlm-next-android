@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/button_nearest_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/button_map" />
+
+    <ViewSwitcher
+        android:id="@+id/group_nearest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_nearest_toggle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+
+        <fragment
+            android:id="@+id/fragment_nearest_list"
+            android:name="com.saboonchi.sthlmnext.NearestListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_nearest_list" />
+
+        <fragment
+            android:id="@+id/fragment_nearest_map"
+            android:name="com.saboonchi.sthlmnext.NearestMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_nearest_map" />
+
+    </ViewSwitcher>
+
+</RelativeLayout>
