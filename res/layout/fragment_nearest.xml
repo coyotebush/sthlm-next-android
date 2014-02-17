@@ -12,7 +12,7 @@
         android:layout_alignParentRight="true"
         android:text="@string/button_map" />
 
-    <RelativeLayout
+    <ViewSwitcher
         android:id="@+id/group_nearest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,11 +21,19 @@
         android:layout_centerHorizontal="true" >
 
         <fragment
-            android:id="@+id/fragment_nearest_inner"
+            android:id="@+id/fragment_nearest_list"
             android:name="com.saboonchi.sthlmnext.NearestListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_nearest_list" />
-    </RelativeLayout>
+
+        <fragment
+            android:id="@+id/fragment_nearest_map"
+            android:name="com.saboonchi.sthlmnext.NearestMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_nearest_map" />
+
+    </ViewSwitcher>
 
 </RelativeLayout>

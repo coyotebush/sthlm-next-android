@@ -2,13 +2,12 @@ package com.saboonchi.sthlmnext;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ViewSwitcher;
 
 public class NearestFragment extends Fragment {
 
@@ -18,12 +17,16 @@ public class NearestFragment extends Fragment {
     /** Button that toggles between map and list displays. */
     private Button toggleButton;
 
+    /** ViewSwitcher containing the fragments for map and list displays. */
+    private ViewSwitcher viewSwitcher;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearest, container,
                 false);
         toggleButton = (Button) view.findViewById(R.id.button_nearest_toggle);
+        viewSwitcher = (ViewSwitcher) view.findViewById(R.id.group_nearest);
 
         toggleButton.setOnClickListener(new OnClickListener() {
 
@@ -32,17 +35,13 @@ public class NearestFragment extends Fragment {
              */
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                viewSwitcher.showNext();
                 mapDisplayed = !mapDisplayed;
                 if (mapDisplayed) {
                     toggleButton.setText(R.string.button_list);
-                    fragmentTransaction.replace(R.id.group_nearest, new NearestMapFragment());
                 } else {
                     toggleButton.setText(R.string.button_map);
-                    fragmentTransaction.replace(R.id.group_nearest, new NearestListFragment());
                 }
-                fragmentTransaction.commit();
             }
         });
         return view;
