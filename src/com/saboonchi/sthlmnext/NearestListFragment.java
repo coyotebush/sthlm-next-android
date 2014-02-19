@@ -2,7 +2,8 @@ package com.saboonchi.sthlmnext;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.widget.SimpleAdapter;
+import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 
 import com.saboonchi.sthlmnext.provider.SampleData;
 
@@ -11,10 +12,10 @@ public class NearestListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(),
-                SampleData.sampleStations(), R.layout.list_item_2_column,
+        ListAdapter adapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.list_item_2_column, SampleData.sampleStations(),
                 new String[] { "name", "type", "distance" },
-                new int[] { R.id.text_main, R.id.text_sub, R.id.text_right });
+                new int[] { R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
         setListAdapter(adapter);
     }
 
