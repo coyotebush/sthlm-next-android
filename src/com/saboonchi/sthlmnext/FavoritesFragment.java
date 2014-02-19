@@ -5,12 +5,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+import com.saboonchi.sthlmnext.provider.SampleData;
 
 public class FavoritesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(),
+                SampleData.sampleFavorites(), R.layout.list_item_2_column,
+                new String[] { "name", "line", "time" },
+                new int[] { R.id.text_main, R.id.text_sub, R.id.text_right });
+        ((ListView) view).setAdapter(adapter);
+        return view;
     }
+
 }
