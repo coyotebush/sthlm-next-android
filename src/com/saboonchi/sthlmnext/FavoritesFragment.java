@@ -1,16 +1,22 @@
 package com.saboonchi.sthlmnext;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.ListFragment;
+import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 
-public class FavoritesFragment extends Fragment {
+import com.saboonchi.sthlmnext.provider.SampleData;
+
+public class FavoritesFragment extends ListFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ListAdapter adapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.list_item_2_column, SampleData.sampleFavorites(),
+                new String[] { "name", "line", "time" },
+                new int[] { R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
+        setListAdapter(adapter);
     }
+
 }
