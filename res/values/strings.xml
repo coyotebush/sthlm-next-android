@@ -7,5 +7,8 @@
     <string name="title_favorites">Favorites</string>
     <string name="button_map">Map</string>
     <string name="button_list">List</string>
+    <string name="title_activity_test">Test</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_destination">DestinationActivity</string>
 
 </resources>
