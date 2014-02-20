@@ -24,16 +24,13 @@
             android:id="@+id/fragment_nearest_list"
             android:name="com.saboonchi.sthlmnext.NearestListFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_nearest_list" />
+            android:layout_height="match_parent" />
 
         <fragment
             android:id="@+id/fragment_nearest_map"
             android:name="com.saboonchi.sthlmnext.NearestMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_nearest_map" />
-
+            android:layout_height="match_parent" />
     </ViewSwitcher>
 
 </RelativeLayout>
