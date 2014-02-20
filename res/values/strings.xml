@@ -10,5 +10,6 @@
     <string name="title_activity_test">Test</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_destination">DestinationActivity</string>
+    <string name="title_activity_departure">Departure</string>
 
 </resources>

@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/text_main"
         android:layout_below="@+id/text_main"
-        android:text="Sub"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
