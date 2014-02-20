@@ -3,7 +3,6 @@ package com.saboonchi.sthlmnext;
 import com.saboonchi.sthlmnext.provider.SampleData;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.view.Menu;
 import android.widget.ListAdapter;
