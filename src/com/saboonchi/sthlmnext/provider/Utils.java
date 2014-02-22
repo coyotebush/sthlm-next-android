@@ -8,10 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Utils {
-    public static String fetchURL(URL url) throws IOException {
+    public static String fetchURL(URL url, String charset) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         InputStream stream = conn.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, charset));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null)

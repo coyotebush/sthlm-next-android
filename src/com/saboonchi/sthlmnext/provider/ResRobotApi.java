@@ -21,7 +21,7 @@ public class ResRobotApi {
                     + "&centerX=" + location.getLongitude()
                     + "&centerY=" + location.getLatitude());
 
-            JSONArray data = new JSONObject(Utils.fetchURL(url))
+            JSONArray data = new JSONObject(Utils.fetchURL(url, "ISO-8859-1"))
                     .getJSONObject("stationsinzoneresult").getJSONArray("location");
 
             MatrixCursor cursor = new MatrixCursor(new String[] { "_id",
