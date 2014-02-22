@@ -1,6 +1,7 @@
 package com.saboonchi.sthlmnext;
 
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -25,8 +26,11 @@ public class NearestListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView listView, View arg1, int position,
 			long arg3) {
+		
 		Intent intent = new Intent(getActivity(), DestinationActivity.class);
-		intent.putExtra("station", "Kista");
+		MatrixCursor cursor = (MatrixCursor) listView.getItemAtPosition(position);
+		String str = cursor.getString(cursor.getColumnIndex("name"));
+		intent.putExtra("station", str);
 		startActivity(intent);
 	}
 
