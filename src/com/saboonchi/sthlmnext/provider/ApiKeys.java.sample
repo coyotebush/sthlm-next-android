@@ -1,0 +1,6 @@
+package com.saboonchi.sthlmnext.provider;
+
+public class ApiKeys {
+    public static final String RESROBOT_RESA = "";
+
+}
