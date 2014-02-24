@@ -33,26 +33,26 @@ public class DepartureActivity extends ListActivity {
 
 			matrixCursor = SampleData.sampleDeparture_Danderydssjukhus();
 
-		} else if (intent.getStringExtra("destination").equals("Kungsträgatan")) {
+		} else if (intent.getStringExtra("destination").equals("KungstrÃ¤gatan")) {
 
-			matrixCursor = SampleData.sampleDeparture_Kungsträgatan();
+			matrixCursor = SampleData.sampleDeparture_KungstrÃ¤gatan();
 
-		} else if (intent.getStringExtra("destination").equals("Mörby Station")) {
+		} else if (intent.getStringExtra("destination").equals("MÃ¶rby Station")) {
 
-			matrixCursor = SampleData.sampleDeparture_MörbyStation();
+			matrixCursor = SampleData.sampleDeparture_MÃ¶rbyStation();
 
-		} else if (intent.getStringExtra("destination").equals("Täby Centrum")) {
+		} else if (intent.getStringExtra("destination").equals("TÃ¤by Centrum")) {
 
-			matrixCursor = SampleData.sampleDeparture_TäbyCentrum();
+			matrixCursor = SampleData.sampleDeparture_TÃ¤byCentrum();
 
-		} else if (intent.getStringExtra("destination").equals("Järfella")) {
+		} else if (intent.getStringExtra("destination").equals("JÃ¤rfella")) {
 
-			matrixCursor = SampleData.sampleDeparture_Järfella();
+			matrixCursor = SampleData.sampleDeparture_JÃ¤rfella();
 
 		} else if (intent.getStringExtra("destination")
-				.equals("Upplands väsby")) {
+				.equals("Upplands vÃ¤sby")) {
 
-			matrixCursor = SampleData.sampleDeparture_Upplandsväsby();
+			matrixCursor = SampleData.sampleDeparture_UpplandsvÃ¤sby();
 		}
 
 		if (matrixCursor != null) {
