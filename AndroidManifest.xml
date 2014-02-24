@@ -30,7 +30,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.saboonchi.sthlmnext.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,11 +46,13 @@
 		    android:value="AIzaSyB2eluXzhH9cPyVraP7NSVuVtzakppNNNw"/>    
         <activity
             android:name="com.saboonchi.sthlmnext.DestinationActivity"
-            android:label="@string/title_activity_destination" >
+            android:label="@string/title_activity_destination"
+            android:screenOrientation="nosensor" >
         </activity>
         <activity
             android:name="com.saboonchi.sthlmnext.DepartureActivity"
-            android:label="@string/title_activity_departure" >
+            android:label="@string/title_activity_departure"
+            android:screenOrientation="nosensor" >
         </activity>
     </application>
 
