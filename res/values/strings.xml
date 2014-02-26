@@ -11,5 +11,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_destination">DestinationActivity</string>
     <string name="title_activity_departure">Departure</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>
