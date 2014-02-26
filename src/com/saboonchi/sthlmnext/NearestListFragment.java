@@ -11,18 +11,19 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
 import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
-public class NearestListFragment extends ListFragment {
+public class NearestListFragment extends ListFragment implements GooglePlayServicesClient.ConnectionCallbacks {
+
+    protected LocationClient locationClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Location location = new Location("sample");
-        location.setLatitude(59.40567);
-        location.setLongitude(17.94485);
-
-        new GetStationsTask().execute(location);
+        locationClient = ((MainActivity) getActivity()).getLocationClient();
+        locationClient.registerConnectionCallbacks(this);
     }
 
     protected class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
@@ -52,5 +53,17 @@ public class NearestListFragment extends ListFragment {
 		intent.putExtra("station", str);
 		startActivity(intent);
 	}
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        new GetStationsTask().execute(locationClient.getLastLocation());
+        
+    }
+
+    @Override
+    public void onDisconnected() {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

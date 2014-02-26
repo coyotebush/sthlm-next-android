@@ -12,8 +12,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class MainActivity extends FragmentActivity implements
-        ActionBar.TabListener {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener,
+        GooglePlayServicesClient.ConnectionCallbacks,
+        GooglePlayServicesClient.OnConnectionFailedListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -29,6 +34,8 @@ public class MainActivity extends FragmentActivity implements
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    
+    LocationClient locationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,20 @@ public class MainActivity extends FragmentActivity implements
                     .setText(mSectionsPagerAdapter.getPageTitle(i))
                     .setTabListener(this));
         }
+        
+        locationClient = new LocationClient(this, this, this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        locationClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        locationClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -135,4 +156,25 @@ public class MainActivity extends FragmentActivity implements
         }
     }
 
+    @Override
+    public void onConnectionFailed(ConnectionResult arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onDisconnected() {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    public LocationClient getLocationClient() {
+        return locationClient;
+    }
 }
