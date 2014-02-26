@@ -1,14 +1,16 @@
 package com.saboonchi.sthlmnext;
 
-import com.saboonchi.sthlmnext.provider.SampleData;
-
-import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.MatrixCursor;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import com.saboonchi.sthlmnext.provider.SampleData;
 
 public class DepartureActivity extends ListActivity {
 
@@ -71,6 +73,11 @@ public class DepartureActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.departure, menu);
 		return true;
+	}
+	
+	@Override
+	public void onListItemClick(ListView listView, View view, int position, long id) {
+	    new DepartureNotificationDialogFragment().show(getFragmentManager(), "dialog");
 	}
 
 }
