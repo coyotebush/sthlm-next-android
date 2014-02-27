@@ -12,5 +12,9 @@
     <string name="title_activity_destination">DestinationActivity</string>
     <string name="title_activity_departure">Departure</string>
     <string name="action_refresh">Refresh</string>
+    <string name="title_dialog_departure_notification">Create notification</string>
+    <string name="button_departure_notification_cancel">Cancel</string>
+    <string name="button_departure_notification_set">Set</string>
+    <string name="text_departure_notification_message">Minutes before departure:</string>
 
 </resources>
