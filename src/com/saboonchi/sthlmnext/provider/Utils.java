@@ -6,6 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class Utils {
     public static String fetchURL(URL url, String charset) throws IOException {
@@ -18,5 +23,26 @@ public class Utils {
             sb.append(line);
         stream.close();
         return sb.toString();
+    }
+    
+    /**
+     * Take a JSON value that can be either a JSONArray or a single other value,
+     * and return a list containing the entries of the array in the first case,
+     * or the single value in the second case.
+     * @param maybeArray a JSONArray or other JSON object
+     * @return a list of JSON values
+     */
+    public static List<Object> jsonMaybeArrayToList(Object maybeArray) throws JSONException {
+        List<Object> result = new LinkedList<Object>();
+        if (maybeArray instanceof JSONArray) {
+            JSONArray array = (JSONArray) maybeArray;
+            for (int i = 0; i < array.length(); i++) {
+                result.add(array.get(i));
+            }
+        }
+        else {
+            result.add(maybeArray);
+        }
+        return result;
     }
 }
