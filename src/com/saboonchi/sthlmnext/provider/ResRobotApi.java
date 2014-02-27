@@ -2,6 +2,7 @@ package com.saboonchi.sthlmnext.provider;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,14 +26,24 @@ public class ResRobotApi {
                     .getJSONObject("stationsinzoneresult").getJSONArray("location");
 
             MatrixCursor cursor = new MatrixCursor(new String[] { "_id",
-                    "name", "location", "distance" }, data.length());
+                    "name", "location", "distance", "types" }, data.length());
             for (int i = 0; i < data.length(); i++) {
                 JSONObject o = data.getJSONObject(i);
+
                 Location l = new Location(ENDPOINT);
                 l.setLongitude(o.getDouble("@x"));
                 l.setLatitude(o.getDouble("@y"));
-                String distance = String.format("%.1fm", location.distanceTo(l));
-                cursor.addRow(new Object[] { o.getInt("@id"), o.getString("name"), l, distance });
+                String distance = String.format("%.0fm", location.distanceTo(l));
+
+                Object transport = o.getJSONObject("transportlist").opt("transport");
+                List<Object> typesList = Utils.jsonMaybeArrayToList(transport);
+                String types = "";
+                for (int j = 0; j < typesList.size(); j++) {
+                    if (j != 0) types += ", ";
+                    types += ((JSONObject) typesList.get(j)).getString("@displaytype");
+                }
+                
+                cursor.addRow(new Object[] { o.getInt("@id"), o.getString("name"), l, distance, types });
             }
             return cursor;
         } catch (IOException e) {

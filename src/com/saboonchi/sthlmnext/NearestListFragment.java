@@ -35,7 +35,7 @@ public class NearestListFragment extends ListFragment {
         protected void onPostExecute(MatrixCursor cursor) {
             ListAdapter adapter = new SimpleCursorAdapter(getActivity(),
                     R.layout.list_item_2_column, cursor,
-                    new String[] { "name", "_id", "distance" },
+                    new String[] { "name", "types", "distance" },
                     new int[] { R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
             setListAdapter(adapter);
         }
