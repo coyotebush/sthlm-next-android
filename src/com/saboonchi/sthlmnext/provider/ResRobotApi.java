@@ -31,7 +31,7 @@ public class ResRobotApi {
                 Location l = new Location(ENDPOINT);
                 l.setLongitude(o.getDouble("@x"));
                 l.setLatitude(o.getDouble("@y"));
-                String distance = String.format("%.1fm", location.distanceTo(l));
+                String distance = String.format("%.0fm", location.distanceTo(l));
                 cursor.addRow(new Object[] { o.getInt("@id"), o.getString("name"), l, distance });
             }
             return cursor;
