@@ -19,8 +19,8 @@ public class NearestListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Location location = new Location("sample");
-        location.setLatitude(59.33);
-        location.setLongitude(18);
+        location.setLatitude(59.40567);
+        location.setLongitude(17.94485);
 
         new GetStationsTask().execute(location);
     }
