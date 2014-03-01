@@ -1,11 +1,14 @@
 package com.saboonchi.sthlmnext;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -18,14 +21,14 @@ public class NearestListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Location location = new Location("sample");
-        location.setLatitude(59.40567);
-        location.setLongitude(17.94485);
+    
+        // Use MainActivity's LocationManager and fetch location
+	    MainActivity ma = (MainActivity) getActivity();
+	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+	    new GetStationsTask().execute(location);
+	}
 
-        new GetStationsTask().execute(location);
-    }
-
-    protected class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
+    private class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
         @Override
         protected MatrixCursor doInBackground(Location... locations) {
             return ResRobotApi.findStationsNear(locations[0]);
