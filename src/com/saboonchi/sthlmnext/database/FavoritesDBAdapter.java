@@ -100,8 +100,8 @@ public class FavoritesDBAdapter {
                 TABLE_NAME,
                 new String[] { BaseColumns._ID },
                 SQL_WHERE_CLAUSE,
-                new String[] { Integer.toString(dest.stationId), dest.destinationName,
-                        Integer.toString(dest.lineNumber) }, null, null, null);
+                new String[] { dest.stationId, dest.destinationName,
+                        dest.lineNumber }, null, null, null);
         return c.getCount() > 0;
     }
 
@@ -122,8 +122,8 @@ public class FavoritesDBAdapter {
     
     public int removeFavorite(Destination dest) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        int rowCount = db.delete(TABLE_NAME, SQL_WHERE_CLAUSE, new String[] { Integer.toString(dest.stationId),
-                        dest.destinationName, Integer.toString(dest.lineNumber) });
+        int rowCount = db.delete(TABLE_NAME, SQL_WHERE_CLAUSE, new String[] { dest.stationId,
+                        dest.destinationName, dest.lineNumber });
         context.getContentResolver().notifyChange(URI_FAVORITES, null);
         return rowCount;
     }
