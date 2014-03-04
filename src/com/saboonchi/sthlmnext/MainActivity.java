@@ -179,4 +179,10 @@ public class MainActivity extends FragmentActivity implements
         }
     }
 
+    @Override
+    public void onPause() {
+    	locationManager.removeUpdates(this);
+    	super.onPause();
+    }
+    
 }
