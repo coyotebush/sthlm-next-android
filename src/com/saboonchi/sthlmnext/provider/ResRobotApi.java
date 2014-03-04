@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.database.MatrixCursor;
 import android.location.Location;
+import android.net.ParseException;
 
 import com.saboonchi.sthlmnext.model.Destination;
 
@@ -25,7 +26,7 @@ public class ResRobotApi {
 			URL url = new URL(APIURL + "GetDepartures.json"
 					+ "?apiVersion=2.1&key=" + ApiKeys.RESROBOT_DEST
 					+ "&coordSys=WGS84" + "&locationId=" + des.stationId
-					+ "&timeSpan=30");
+					+ "&timeSpan=120");
 
 			JSONArray data = new JSONObject(Utils.fetchURL(url, "ISO-8859-1"))
 					.getJSONObject("getdeparturesresult").getJSONArray(
@@ -49,8 +50,7 @@ public class ResRobotApi {
 							i,
 							o.getString("direction"),
 							((JSONObject) carrierObject).getString("number"),
-							((JSONObject) departureTimeObject)
-									.getString("datetime"),
+							Utils.getTimeDiffInMin(((JSONObject) departureTimeObject).getString("datetime")),
 							((JSONObject) motObject).getString("@displaytype"), });
 			}
 			return cursor;
@@ -64,12 +64,13 @@ public class ResRobotApi {
 		return null;
 	}
 
+
 	public static MatrixCursor getDestinationList(String stationId) {
 		try {
 			URL url = new URL(APIURL + "GetDepartures.json"
 					+ "?apiVersion=2.1&key=" + ApiKeys.RESROBOT_DEST
 					+ "&coordSys=WGS84" + "&locationId=" + stationId
-					+ "&timeSpan=30");
+					+ "&timeSpan=120");
 
 			JSONArray data = new JSONObject(Utils.fetchURL(url, "ISO-8859-1"))
 					.getJSONObject("getdeparturesresult").getJSONArray(
@@ -84,13 +85,14 @@ public class ResRobotApi {
 				Object carrierObject = o.getJSONObject("segmentid").opt(
 						"carrier");
 				JSONObject departureTimeObject = o.getJSONObject("departure");
-
+				
+				
+				
 				cursor.addRow(new Object[] {
 						i,
 						o.getString("direction"),
 						((JSONObject) carrierObject).getString("number"),
-						((JSONObject) departureTimeObject)
-								.getString("datetime"),
+						Utils.getTimeDiffInMin(((JSONObject) departureTimeObject).getString("datetime")),
 						((JSONObject) motObject).getString("@displaytype"), });
 			}
 			return cursor;
@@ -100,6 +102,9 @@ public class ResRobotApi {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParseException e) {  
+		    // TODO Auto-generated catch block  
+		    e.printStackTrace();  
 		}
 		return null;
 	}
