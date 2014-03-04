@@ -12,8 +12,10 @@ import android.database.MatrixCursor;
 import android.location.Location;
 
 public class ResRobotApi {
+
 	private static final String ENDPOINT = "https://api.trafiklab.se/samtrafiken/resrobot/";
 	private static final String APIURL = "https://api.trafiklab.se/samtrafiken/resrobotstops/";
+    private static final String CARRIER_ID = "275";
 
 	public static MatrixCursor getDestinationList(String stationId) {
 		try {
@@ -71,6 +73,20 @@ public class ResRobotApi {
 					"name", "location", "distance", "types" }, data.length());
 			for (int i = 0; i < data.length(); i++) {
 				JSONObject o = data.getJSONObject(i);
+				
+                Object producer = o.getJSONObject("producerlist").opt("producer");
+                List<Object> producerList = Utils.jsonMaybeArrayToList(producer);
+                boolean foundProducer = false;
+                for (Object p : producerList) {
+                    if (((JSONObject) p).getString("@id").equals(CARRIER_ID)) {
+                        foundProducer = true;
+                        break;
+                    }
+                }
+                if (!foundProducer) {
+                    continue;
+                }
+
 
 				Location l = new Location(ENDPOINT);
 				l.setLongitude(o.getDouble("@x"));
