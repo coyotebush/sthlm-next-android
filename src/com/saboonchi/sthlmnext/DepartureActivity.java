@@ -30,7 +30,7 @@ public class DepartureActivity extends ListActivity {
 		ListAdapter adapter = null;
 		MatrixCursor matrixCursor = null;
 
-		if (intent.getStringExtra("destination").equals("Akalla")) {
+		if (intent.getStringExtra("destination").equals("Akalla T-bana")) {
 
 			matrixCursor = SampleData.sampleDeparture_Akalla();
 

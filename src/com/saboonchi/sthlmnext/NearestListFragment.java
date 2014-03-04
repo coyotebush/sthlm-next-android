@@ -1,6 +1,6 @@
 package com.saboonchi.sthlmnext;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.location.Location;
@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -51,8 +50,9 @@ public class NearestListFragment extends ListFragment {
 		Intent intent = new Intent(getActivity(), DestinationActivity.class);
 		MatrixCursor cursor = (MatrixCursor) listView.getItemAtPosition(position);
 		String str = cursor.getString(cursor.getColumnIndex("name"));
-		str = "Kista"; // FIXME
+		String stationId = cursor.getString(cursor.getColumnIndex("_id"));
 		intent.putExtra("station", str);
+		intent.putExtra("StationID", stationId);
 		startActivity(intent);
 	}
 

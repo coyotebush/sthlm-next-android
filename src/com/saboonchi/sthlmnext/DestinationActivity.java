@@ -1,7 +1,8 @@
 package com.saboonchi.sthlmnext;
 
-import com.saboonchi.sthlmnext.provider.SampleData;
+import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -19,47 +20,38 @@ public class DestinationActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		ListAdapter adapter = null;
+		setTitle(intent.getStringExtra("station"));
+		String stationId = intent.getStringExtra("StationID");
+		new GetStationsTask().execute(stationId);
 
-		if (intent.getStringExtra("station").equals("Kista")) {
+	}
 
-			adapter = new SimpleCursorAdapter(this,
-					R.layout.list_item_2_column,
-					SampleData.sampleDestination_Kista(), new String[] {
-							"destination", "line", "time" }, new int[] {
-							R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
-
-		} else if (intent.getStringExtra("station").equals("Husby")) {
-			adapter = new SimpleCursorAdapter(this,
-					R.layout.list_item_2_column,
-					SampleData.sampleDestination_Husby(), new String[] {
-							"destination", "line", "time" }, new int[] {
-							R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
-		
-		}else if (intent.getStringExtra("station").equals("Helenelund")) {
-			adapter = new SimpleCursorAdapter(this,
-					R.layout.list_item_2_column,
-					SampleData.sampleDestination_Helenelund(), new String[] {
-							"destination", "line", "time" }, new int[] {
-							R.id.text_main, R.id.text_sub, R.id.text_right }, 0);
+	private class GetStationsTask extends AsyncTask<String, Void, MatrixCursor> {
+		@Override
+		protected MatrixCursor doInBackground(String... stationId) {
+			return ResRobotApi.getDestinationList(stationId[0]);
 		}
 
-		if (adapter != null){
+		@Override
+		protected void onPostExecute(MatrixCursor cursor) {
+			ListAdapter adapter = new SimpleCursorAdapter(
+					DestinationActivity.this,
+					R.layout.list_item_2_column,
+					cursor,
+					new String[] { "direction", "number", "time" },
+					new int[] { R.id.text_main, R.id.text_sub, R.id.text_right },
+					0);
 			setListAdapter(adapter);
-		}else{
-			intent = new Intent(this, MainActivity.class);
-			//intent.putExtra("station", "Kista");
-			startActivity(intent);
 		}
-			
 	}
 
 	@Override
 	public void onListItemClick(ListView listView, View arg1, int position,
 			long arg3) {
 		Intent intent = new Intent(this, DepartureActivity.class);
-		MatrixCursor cursor = (MatrixCursor) listView.getItemAtPosition(position);
-		String str = cursor.getString(cursor.getColumnIndex("destination"));
+		MatrixCursor cursor = (MatrixCursor) listView
+				.getItemAtPosition(position);
+		String str = cursor.getString(cursor.getColumnIndex("direction"));
 		intent.putExtra("destination", str);
 		startActivity(intent);
 	}
