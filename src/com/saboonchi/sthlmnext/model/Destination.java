@@ -11,14 +11,14 @@ package com.saboonchi.sthlmnext.model;
  * FavoritesDBAdapter.
  */
 public class Destination {
-    public int stationId;
+    public String stationId;
     public String stationName;
     public String destinationName;
     public String lineType;
-    public int lineNumber;
+    public String lineNumber;
 
-    public Destination(int stationId, String stationName, String destinationName,
-                        String lineType, int lineNumber) {
+    public Destination(String stationId, String stationName, String destinationName,
+                        String lineType, String lineNumber) {
         this.stationId = stationId;
         this.stationName = stationName;
         this.destinationName = destinationName;
