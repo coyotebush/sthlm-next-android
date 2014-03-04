@@ -10,15 +10,16 @@ package com.saboonchi.sthlmnext.model;
  * FavoritesFragment, and then used as a parameter to methods of
  * FavoritesDBAdapter.
  */
-public class Destination {
-    public int stationId;
+public class Destination implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    public String stationId;
     public String stationName;
     public String destinationName;
     public String lineType;
-    public int lineNumber;
+    public String lineNumber;
 
-    public Destination(int stationId, String stationName, String destinationName,
-                        String lineType, int lineNumber) {
+    public Destination(String stationId, String stationName, String destinationName,
+                        String lineType, String lineNumber) {
         this.stationId = stationId;
         this.stationName = stationName;
         this.destinationName = destinationName;
