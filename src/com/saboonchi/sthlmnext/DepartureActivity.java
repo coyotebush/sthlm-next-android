@@ -27,42 +27,12 @@ public class DepartureActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
+		dest = (Destination) intent.getSerializableExtra("destination");
 		ListAdapter adapter = null;
 		MatrixCursor matrixCursor = null;
 
-		if (intent.getStringExtra("destination").equals("Akalla T-bana")) {
-
 			matrixCursor = SampleData.sampleDeparture_Akalla();
 
-		} else if (intent.getStringExtra("destination").equals("Brommaplan")) {
-
-			matrixCursor = SampleData.sampleDeparture_Brommaplan();
-
-		} else if (intent.getStringExtra("destination").equals("Danderyds sjukhus")) {
-
-			matrixCursor = SampleData.sampleDeparture_Danderydssjukhus();
-
-		} else if (intent.getStringExtra("destination").equals("Kungsträgatan")) {
-
-			matrixCursor = SampleData.sampleDeparture_Kungsträgatan();
-
-		} else if (intent.getStringExtra("destination").equals("Mörby Station")) {
-
-			matrixCursor = SampleData.sampleDeparture_MörbyStation();
-
-		} else if (intent.getStringExtra("destination").equals("Täby Centrum")) {
-
-			matrixCursor = SampleData.sampleDeparture_TäbyCentrum();
-
-		} else if (intent.getStringExtra("destination").equals("Järfella")) {
-
-			matrixCursor = SampleData.sampleDeparture_Järfella();
-
-		} else if (intent.getStringExtra("destination")
-				.equals("Upplands väsby")) {
-
-			matrixCursor = SampleData.sampleDeparture_Upplandsväsby();
-		}
 
 		if (matrixCursor != null) {
 
@@ -74,7 +44,6 @@ public class DepartureActivity extends ListActivity {
 			setListAdapter(adapter);
 		}
 
-		dest = new Destination(1, "Slussen", "Hässelby strand", "T", 19);
 
 	}
 
