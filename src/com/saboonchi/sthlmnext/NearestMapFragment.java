@@ -1,9 +1,10 @@
 package com.saboonchi.sthlmnext;
 
 
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment; 
 import com.google.android.gms.maps.model.LatLng; 
 import com.google.android.gms.maps.model.Marker; 
@@ -12,6 +13,7 @@ import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
 
 import android.app.Fragment;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,8 +22,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.SimpleCursorAdapter;
 
 public class NearestMapFragment extends Fragment {
 
@@ -70,35 +70,55 @@ public class NearestMapFragment extends Fragment {
             map.setMyLocationEnabled(true);
             	
             /**
-             * 
-             * Here a cursor adapter which draws markers to the map
-             * 
+             * Here a cursor draws markers to the map
              */
-                        
-            
-            
+            Cursor c = list;
+            if (c!=null) {
+	            if(c.moveToFirst()) {
+	            	do {
+	            		map.addMarker(new MarkerOptions()
+		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
+		            		.title(c.getString(1))
+		            		.alpha((float) 0.6)
+            				);
+	            	} while (c.moveToNext());
+	        	}
+            }
+            c.close();
+		           
             // Check if we were successful in obtaining the map.
             if (map != null) {
                 // The Map is verified. It is now safe to manipulate the map.
             	map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 					
+            		            		
 					@Override
 					public void onMyLocationChange(Location arg0) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub						
 						LatLng latlong = new LatLng(arg0.getLatitude(),
 				                arg0.getLongitude());
 						
 						// Zoom to user's location only when map is opened for the first time
 						if (i==1) {
 								map.moveCamera(CameraUpdateFactory.newLatLng(latlong));
-						        map.animateCamera(CameraUpdateFactory.zoomTo(13));
+						        map.animateCamera(CameraUpdateFactory.zoomTo(15));
 						        i=2;
 						}
 					}
 				});
             }
         }
-    }
+    	
+    	map.setOnMarkerClickListener(new OnMarkerClickListener() {
 
+			@Override
+			public boolean onMarkerClick(Marker arg0) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+        });
+    }
+    
+    
+    
 }

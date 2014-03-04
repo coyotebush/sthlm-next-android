@@ -117,7 +117,7 @@ public class ResRobotApi {
 							"location");
 
 			MatrixCursor cursor = new MatrixCursor(new String[] { "_id",
-					"name", "location", "distance", "types" }, data.length());
+					"name", "lgn", "lat","distance", "types" }, data.length());
 			for (int i = 0; i < data.length(); i++) {
 				JSONObject o = data.getJSONObject(i);
 
@@ -154,7 +154,7 @@ public class ResRobotApi {
 				}
 
 				cursor.addRow(new Object[] { o.getInt("@id"),
-						o.getString("name"), l, distance, types });
+						o.getString("name"), l.getLongitude(), l.getLatitude(), distance, types });
 			}
 			return cursor;
 		} catch (IOException e) {
