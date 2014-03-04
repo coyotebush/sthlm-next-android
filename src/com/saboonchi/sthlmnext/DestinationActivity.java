@@ -1,5 +1,6 @@
 package com.saboonchi.sthlmnext;
 
+import com.saboonchi.sthlmnext.model.Destination;
 import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
 import android.os.AsyncTask;
@@ -14,14 +15,17 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class DestinationActivity extends ListActivity {
+    protected String stationId;
+    protected String stationName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		setTitle(intent.getStringExtra("station"));
-		String stationId = intent.getStringExtra("StationID");
+		stationName = intent.getStringExtra("station");
+		stationId = intent.getStringExtra("StationID");
+		setTitle(stationName);
 		new GetStationsTask().execute(stationId);
 
 	}
@@ -51,8 +55,11 @@ public class DestinationActivity extends ListActivity {
 		Intent intent = new Intent(this, DepartureActivity.class);
 		MatrixCursor cursor = (MatrixCursor) listView
 				.getItemAtPosition(position);
-		String str = cursor.getString(cursor.getColumnIndex("direction"));
-		intent.putExtra("destination", str);
+		Destination dest = new Destination(stationId, stationName,
+		        cursor.getString(cursor.getColumnIndex("direction")),
+		        cursor.getString(cursor.getColumnIndex("type")),
+		        cursor.getString(cursor.getColumnIndex("number")));
+		intent.putExtra("destination", dest);
 		startActivity(intent);
 	}
 

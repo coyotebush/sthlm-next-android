@@ -24,13 +24,12 @@ public class DepartureActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		dest = new Destination("7412883", "Kista T-bana", "Akalla T-bana", "T",
-				"11");
 
 		Intent intent = getIntent();
-		setTitle(intent.getStringExtra("station"));
-		new GetStationsTask().execute(dest);
+		dest = (Destination) intent.getSerializableExtra("destination");
 
+		setTitle(dest.stationName);
+		new GetStationsTask().execute(dest);
 	}
 
 	private class GetStationsTask extends

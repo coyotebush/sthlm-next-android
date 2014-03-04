@@ -10,7 +10,8 @@ package com.saboonchi.sthlmnext.model;
  * FavoritesFragment, and then used as a parameter to methods of
  * FavoritesDBAdapter.
  */
-public class Destination {
+public class Destination implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     public String stationId;
     public String stationName;
     public String destinationName;
