@@ -2,8 +2,12 @@ package com.saboonchi.sthlmnext;
 
 
 
+import java.util.HashMap;
+
+import com.google.android.gms.internal.ar;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment; 
 import com.google.android.gms.maps.model.LatLng; 
@@ -13,6 +17,7 @@ import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.location.Location;
@@ -27,6 +32,9 @@ public class NearestMapFragment extends Fragment {
 
 	GoogleMap map;
 	
+	//private HashMap<Marker, HashMap<String,Integer>> outer_data;
+    private HashMap<Marker, HashMap<String, String>> outer_data = new HashMap<Marker, HashMap<String,String>>();
+
 	// This is just a controller variable for drawing the map
 	private int i = 1;
 	
@@ -40,9 +48,6 @@ public class NearestMapFragment extends Fragment {
 	    MainActivity ma = (MainActivity) getActivity();
 	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 	    new GetStationsTask().execute(location);
-    	
-    	// Check if GoogleMap is available
-    	//setUpMapIfNeeded();
     	
     	return v;
  
@@ -68,25 +73,25 @@ public class NearestMapFragment extends Fragment {
     	if (map == null) {
             map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
             map.setMyLocationEnabled(true);
-            	
-            /**
-             * Here a cursor draws markers to the map
-             */
+            	            
+            // Here a cursor draws markers to the map
             Cursor c = list;
             if (c!=null) {
 	            if(c.moveToFirst()) {
 	            	do {
-	            		map.addMarker(new MarkerOptions()
+	            		Marker marker = map.addMarker(new MarkerOptions()
 		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
 		            		.title(c.getString(1))
-		            		.alpha((float) 0.6)
-            				);
+		            		.alpha((float) 0.6)	
+	            			);
+            			HashMap<String, String> inner_data = new HashMap<String, String>();
+            			inner_data.put("ID",c.getString(0));
+            			outer_data.put(marker, inner_data);
 	            	} while (c.moveToNext());
 	        	}
             }
             c.close();
 		           
-            // Check if we were successful in obtaining the map.
             if (map != null) {
                 // The Map is verified. It is now safe to manipulate the map.
             	map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -114,9 +119,28 @@ public class NearestMapFragment extends Fragment {
 			@Override
 			public boolean onMarkerClick(Marker arg0) {
 				// TODO Auto-generated method stub
+
 				return false;
 			}
         });
+    	
+    	map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+			
+			@Override
+			public void onInfoWindowClick(Marker arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.isInfoWindowShown()) {
+					HashMap<String,String> marker_data = new HashMap<String,String>();
+					marker_data = outer_data.get(arg0);
+					String id = marker_data.get("ID");
+					Intent intent = new Intent(getActivity(), DestinationActivity.class);
+					intent.putExtra("station", arg0.getTitle());
+					intent.putExtra("StationID", id);
+					startActivity(intent);
+
+				}
+			}
+		});
     }
     
     
