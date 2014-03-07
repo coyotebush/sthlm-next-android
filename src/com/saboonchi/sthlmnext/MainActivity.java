@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,12 +16,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+
+
 
 public class MainActivity extends FragmentActivity implements
         ActionBar.TabListener,
         LocationListener {
-	
-	
+		
 	// Location related stuff
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
@@ -46,8 +51,6 @@ public class MainActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        
         
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -120,6 +123,19 @@ public class MainActivity extends FragmentActivity implements
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case R.id.action_about:
+    		Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+    		startActivity(intent);
+    		return true;
+    	default:
+            return super.onOptionsItemSelected(item);	
+    	}
+    	
     }
 
     @Override
