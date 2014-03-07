@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">STHLM Next</string>
+    <string name="action_settings">Asetukset</string>
+    <string name="title_nearest">Lähin</string>
+    <string name="title_favorites">Suosikit</string>
+    <string name="button_map">Kartta</string>
+    <string name="button_list">Lista</string>
+    <string name="title_activity_test">Test</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_destination">Määränpää</string>
+    <string name="title_activity_departure">Lähtöajat</string>
+    <string name="action_refresh">Päivitä</string>
+    <string name="action_favorite">Suosikki</string>
+    <string name="title_dialog_departure_notification">Luo notifikaatio</string>
+    <string name="button_departure_notification_cancel">Peruuta</string>
+    <string name="button_departure_notification_set">Aseta</string>
+    <string name="text_departure_notification_message">Aikaa lähtöön:</string>
+    <string name="title_activity_about">Tietoja</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="action_about">Tietoja</string>
+    <string name="disclaimer">ÄLÄ LUOTA TÄHÄN SOVELLUKSEEN</string>
+    <string name="disclaimer_title">VASTUUVAPAUTUS</string>
+    <string name="logo_desc">STHML Next logo</string>
+    <string name="version_number">Versio: xxx</string>
+
+</resources>
