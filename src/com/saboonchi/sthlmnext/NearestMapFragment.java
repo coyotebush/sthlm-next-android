@@ -4,7 +4,6 @@ package com.saboonchi.sthlmnext;
 
 import java.util.HashMap;
 
-import com.google.android.gms.internal.ar;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
@@ -46,7 +45,7 @@ public class NearestMapFragment extends Fragment {
     	    	
     	// Use MainActivity's LocationManager and fetch location
 	    MainActivity ma = (MainActivity) getActivity();
-	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 	    new GetStationsTask().execute(location);
     	
     	return v;

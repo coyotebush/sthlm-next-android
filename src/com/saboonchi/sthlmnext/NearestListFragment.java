@@ -23,7 +23,7 @@ public class NearestListFragment extends ListFragment {
     
         // Use MainActivity's LocationManager and fetch location
 	    MainActivity ma = (MainActivity) getActivity();
-	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 	    new GetStationsTask().execute(location);
 	}
 
