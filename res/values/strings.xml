@@ -25,5 +25,6 @@
     <string name="disclaimer_title">DISCLAIMER</string>
     <string name="logo_desc">STHML Next logo</string>
     <string name="version_number">Version: xxx</string>
+    <string name="api_credit">Uses information retrieved from trafiklab.se</string>
 
 </resources>

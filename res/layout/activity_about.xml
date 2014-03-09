@@ -47,9 +47,18 @@
         android:layout_height="wrap_content"
         android:text="@string/disclaimer"
         />
+    <TextView
+        android:id="@+id/api_credit"
+        android:layout_below="@id/disclaimer"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="@string/api_credit"
+        />
     <TextView 
         android:id="@+id/authors"
-        android:layout_below="@id/disclaimer"
+        android:layout_below="@id/api_credit"
 		android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
