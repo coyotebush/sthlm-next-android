@@ -1,8 +1,7 @@
 package com.saboonchi.sthlmnext;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
 import android.widget.TextView;
 
 public class AboutActivity extends Activity {
@@ -16,12 +15,4 @@ public class AboutActivity extends Activity {
 		authors.setText("Authors:\nCorey Ford\nNiko Kangas\nNima Saboonchi");
 		
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 }
