@@ -225,7 +225,8 @@ public class MainActivity extends FragmentActivity implements
             }
             NearestMapFragment mapFragment = (NearestMapFragment) fragmentManager.findFragmentById(R.id.fragment_nearest_map);
             if (mapFragment != null) {
-                mapFragment.setUpMapIfNeeded(cursor);
+                mapFragment.setUpMapIfNeeded();
+                mapFragment.drawMap(cursor);
             }
         }
     }

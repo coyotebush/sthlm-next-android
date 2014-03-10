@@ -46,31 +46,13 @@ public class NearestMapFragment extends Fragment {
  
     }
     
-    public void setUpMapIfNeeded(MatrixCursor list) {
+    public void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         
     	if (map == null) {
             map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
             map.setMyLocationEnabled(true);
             	            
-            // Here a cursor draws markers to the map
-            Cursor c = list;
-            if (c!=null) {
-	            if(c.moveToFirst()) {
-	            	do {
-	            		Marker marker = map.addMarker(new MarkerOptions()
-		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
-		            		.title(c.getString(1))
-		            		.alpha((float) 0.6)	
-	            			);
-            			HashMap<String, String> inner_data = new HashMap<String, String>();
-            			inner_data.put("ID",c.getString(0));
-            			outer_data.put(marker, inner_data);
-	            	} while (c.moveToNext());
-	        	}
-            }
-            c.close();
-		           
             if (map != null) {
                 // The Map is verified. It is now safe to manipulate the map.
             	map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -120,6 +102,25 @@ public class NearestMapFragment extends Fragment {
 				}
 			}
 		});
+    }
+    
+    public void drawMap(Cursor c) {
+            // Here a cursor draws markers to the map
+        map.clear();
+            if (c!=null) {
+	            if(c.moveToFirst()) {
+	            	do {
+	            		Marker marker = map.addMarker(new MarkerOptions()
+		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
+		            		.title(c.getString(1))
+		            		.alpha((float) 0.6)	
+	            			);
+            			HashMap<String, String> inner_data = new HashMap<String, String>();
+            			inner_data.put("ID",c.getString(0));
+            			outer_data.put(marker, inner_data);
+	            	} while (c.moveToNext());
+	        	}
+            }
     }
     
     
