@@ -94,14 +94,12 @@ public class MainActivity extends FragmentActivity implements
         // Location based stuff 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-	new GetStationsTask().execute(location);
+        refreshStations();
     }
     
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-
+	    new GetStationsTask().execute(location);
 	}
 	
 	@Override
@@ -203,6 +201,13 @@ public class MainActivity extends FragmentActivity implements
     public void onPause() {
     	locationManager.removeUpdates(this);
     	super.onPause();
+    }
+    
+    public void refreshStations() {
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            new GetStationsTask().execute(location);
+        }
     }
 
     private class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
