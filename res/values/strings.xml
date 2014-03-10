@@ -17,5 +17,14 @@
     <string name="button_departure_notification_cancel">Cancel</string>
     <string name="button_departure_notification_set">Set</string>
     <string name="text_departure_notification_message">Minutes before departure:</string>
+    <string name="title_activity_about">About</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="action_about">About</string>
+    <string name="disclaimer">DO NOT TRUST THIS APP!</string>
+    <string name="disclaimer_title">DISCLAIMER</string>
+    <string name="logo_desc">STHML Next logo</string>
+    <string name="version_number">Version: xxx</string>
+    <string name="api_credit">Uses information retrieved from trafiklab.se</string>
 
 </resources>
