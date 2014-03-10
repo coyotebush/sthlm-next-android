@@ -6,9 +6,11 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +19,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
 
 
@@ -91,13 +94,12 @@ public class MainActivity extends FragmentActivity implements
         // Location based stuff 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        
+        refreshStations();
     }
     
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-
+	    new GetStationsTask().execute(location);
 	}
 	
 	@Override
@@ -199,6 +201,34 @@ public class MainActivity extends FragmentActivity implements
     public void onPause() {
     	locationManager.removeUpdates(this);
     	super.onPause();
+    }
+    
+    public void refreshStations() {
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            new GetStationsTask().execute(location);
+        }
+    }
+
+    private class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
+        @Override
+        protected MatrixCursor doInBackground(Location... locations) {
+            return ResRobotApi.findStationsNear(locations[0]);
+        }
+
+        @Override
+        protected void onPostExecute(MatrixCursor cursor) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            NearestListFragment listFragment = (NearestListFragment) fragmentManager.findFragmentById(R.id.fragment_nearest_list);
+            if (listFragment != null) {
+                listFragment.setCursor(cursor);
+            }
+            NearestMapFragment mapFragment = (NearestMapFragment) fragmentManager.findFragmentById(R.id.fragment_nearest_map);
+            if (mapFragment != null) {
+                mapFragment.setUpMapIfNeeded();
+                mapFragment.drawMap(cursor);
+            }
+        }
     }
     
 }

@@ -4,19 +4,6 @@ package com.saboonchi.sthlmnext;
 
 import java.util.HashMap;
 
-import com.google.android.gms.internal.ar;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.MapFragment; 
-import com.google.android.gms.maps.model.LatLng; 
-import com.google.android.gms.maps.model.Marker; 
-import com.google.android.gms.maps.model.MarkerOptions; 
-import com.saboonchi.sthlmnext.provider.ResRobotApi;
-
-
-import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -24,9 +11,20 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.saboonchi.sthlmnext.provider.ResRobotApi;
 
 public class NearestMapFragment extends Fragment {
 
@@ -43,55 +41,18 @@ public class NearestMapFragment extends Fragment {
         Bundle savedInstanceState) {
     	
     	View v = inflater.inflate(R.layout.fragment_nearest_map, container, false);
-    	    	
-    	// Use MainActivity's LocationManager and fetch location
-	    MainActivity ma = (MainActivity) getActivity();
-	    Location location = ma.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-	    new GetStationsTask().execute(location);
-    	
+
     	return v;
  
     }
     
-    private class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
-        @Override
-        protected MatrixCursor doInBackground(Location... locations) {
-            return ResRobotApi.findStationsNear(locations[0]);
-        }
-
-        @Override
-        protected void onPostExecute(MatrixCursor cursor) {
-        	setUpMapIfNeeded(cursor);
-
-        }
-    }
-    
-    
-    private void setUpMapIfNeeded(MatrixCursor list) {
+    public void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         
     	if (map == null) {
-            map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
             map.setMyLocationEnabled(true);
             	            
-            // Here a cursor draws markers to the map
-            Cursor c = list;
-            if (c!=null) {
-	            if(c.moveToFirst()) {
-	            	do {
-	            		Marker marker = map.addMarker(new MarkerOptions()
-		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
-		            		.title(c.getString(1))
-		            		.alpha((float) 0.6)	
-	            			);
-            			HashMap<String, String> inner_data = new HashMap<String, String>();
-            			inner_data.put("ID",c.getString(0));
-            			outer_data.put(marker, inner_data);
-	            	} while (c.moveToNext());
-	        	}
-            }
-            c.close();
-		           
             if (map != null) {
                 // The Map is verified. It is now safe to manipulate the map.
             	map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -141,6 +102,25 @@ public class NearestMapFragment extends Fragment {
 				}
 			}
 		});
+    }
+    
+    public void drawMap(Cursor c) {
+            // Here a cursor draws markers to the map
+        map.clear();
+            if (c!=null) {
+	            if(c.moveToFirst()) {
+	            	do {
+	            		Marker marker = map.addMarker(new MarkerOptions()
+		            		.position(new LatLng(c.getDouble(3),c.getDouble(2)))
+		            		.title(c.getString(1))
+		            		.alpha((float) 0.6)	
+	            			);
+            			HashMap<String, String> inner_data = new HashMap<String, String>();
+            			inner_data.put("ID",c.getString(0));
+            			outer_data.put(marker, inner_data);
+	            	} while (c.moveToNext());
+	        	}
+            }
     }
     
     
