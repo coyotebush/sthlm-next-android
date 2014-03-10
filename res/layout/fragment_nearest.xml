@@ -1,36 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    android:id="@+id/group_nearest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <ViewSwitcher
-        android:id="@+id/group_nearest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/group_type_filter"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
+    <fragment
+        android:id="@+id/fragment_nearest_list"
+        android:name="com.saboonchi.sthlmnext.NearestListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <fragment
-            android:id="@+id/fragment_nearest_list"
-            android:name="com.saboonchi.sthlmnext.NearestListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/fragment_nearest_map"
+        android:name="com.saboonchi.sthlmnext.NearestMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <fragment
-            android:id="@+id/fragment_nearest_map"
-            android:name="com.saboonchi.sthlmnext.NearestMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ViewSwitcher>
-
-    <LinearLayout
-        android:id="@+id/group_type_filter"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
-</RelativeLayout>
+</ViewSwitcher>

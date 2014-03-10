@@ -7,15 +7,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ToggleButton;
+import android.widget.Button;
 import android.widget.ViewSwitcher;
 
 public class NearestFragment extends Fragment {
-
-    private static final String[] types = { "B", "T", "J", "L", "W" };
 
     /** Whether the map (instead of list) display is visible. */
     private boolean mapDisplayed = false;
@@ -34,18 +31,7 @@ public class NearestFragment extends Fragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearest, container,
                 false);
-        viewSwitcher = (ViewSwitcher) view.findViewById(R.id.group_nearest);
-
-        LinearLayout toggleGroup = (LinearLayout) view.findViewById(R.id.group_type_filter);
-        LayoutParams layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1);
-        for (String t : types) {
-            ToggleButton button = new ToggleButton(getActivity());
-            button.setText(t);
-            button.setTextOn(t);
-            button.setTextOff(t);
-            button.setChecked(true);
-            toggleGroup.addView(button, layoutParams);
-        }
+        viewSwitcher = (ViewSwitcher) view;
         return view;
     }
     
