@@ -67,6 +67,11 @@ public class NearestFragment extends Fragment {
         case R.id.action_refresh:
             ((MainActivity) getActivity()).refreshStations();
             return true;
+            
+        case R.id.action_bus:
+            boolean b = !item.isChecked();
+            ((MainActivity) getActivity()).setIncludeBus(b);
+            item.setChecked(b);
 
         default:
             return super.onOptionsItemSelected(item);

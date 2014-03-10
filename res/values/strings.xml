@@ -26,5 +26,6 @@
     <string name="logo_desc">STHML Next logo</string>
     <string name="version_number">Version: xxx</string>
     <string name="api_credit">Uses information retrieved from trafiklab.se</string>
+    <string name="action_bus">Show bus stops</string>
 
 </resources>
