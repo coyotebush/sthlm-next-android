@@ -65,7 +65,7 @@ public class NearestFragment extends Fragment {
             return true;
 
         case R.id.action_refresh:
-            // TODO
+            ((MainActivity) getActivity()).refreshStations();
             return true;
 
         default:
