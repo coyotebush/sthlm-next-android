@@ -51,7 +51,7 @@ public class ResRobotApi {
 							o.getString("direction"),
 							((JSONObject) carrierObject).getString("number"),
 							Utils.getTimeDiffInMin(((JSONObject) departureTimeObject).getString("datetime")),
-							((JSONObject) motObject).getString("@displaytype"), });
+							translateDisplayType(((JSONObject) motObject).getString("@displaytype")), });
 			}
 			return cursor;
 		} catch (IOException e) {
@@ -93,7 +93,7 @@ public class ResRobotApi {
 						o.getString("direction"),
 						((JSONObject) carrierObject).getString("number"),
 						Utils.getTimeDiffInMin(((JSONObject) departureTimeObject).getString("datetime")),
-						((JSONObject) motObject).getString("@displaytype"), });
+						translateDisplayType(((JSONObject) motObject).getString("@displaytype")), });
 			}
 			return cursor;
 		} catch (IOException e) {
@@ -145,17 +145,16 @@ public class ResRobotApi {
 				l.setLongitude(o.getDouble("@x"));
 				l.setLatitude(o.getDouble("@y"));
 				String distance = String
-						.format("%.0fm", location.distanceTo(l));
+				        .format("%.0fm", location.distanceTo(l));
 
 				Object transport = o.getJSONObject("transportlist").opt(
 						"transport");
 				List<Object> typesList = Utils.jsonMaybeArrayToList(transport);
 				String types = "";
 				for (int j = 0; j < typesList.size(); j++) {
-					if (j != 0)
-						types += ", ";
-					types += ((JSONObject) typesList.get(j))
-							.getString("@displaytype");
+				    if (j != 0)
+				        types += ", ";
+				    types += translateDisplayType(((JSONObject) typesList.get(j)).getString("@displaytype"));
 				}
 
 				cursor.addRow(new Object[] { o.getInt("@id"),
@@ -170,6 +169,16 @@ public class ResRobotApi {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	protected static String translateDisplayType(String type) {
+	    if (type.equals("U")) {
+	        return "T";
+	    }
+	    else if (type.equals("T")) {
+	        return "U";
+	    }
+	    return type;
 	}
 
 }
