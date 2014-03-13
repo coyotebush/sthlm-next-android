@@ -33,6 +33,8 @@ public class MainActivity extends FragmentActivity implements
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
 	protected Context context;
+	
+	protected boolean includeBus = false;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -210,10 +212,15 @@ public class MainActivity extends FragmentActivity implements
         }
     }
 
+    public void setIncludeBus(boolean b) {
+        includeBus = b;
+        refreshStations();
+    }
+
     private class GetStationsTask extends AsyncTask<Location, Void, MatrixCursor> {
         @Override
         protected MatrixCursor doInBackground(Location... locations) {
-            return ResRobotApi.findStationsNear(locations[0]);
+            return ResRobotApi.findStationsNear(locations[0], includeBus);
         }
 
         @Override
