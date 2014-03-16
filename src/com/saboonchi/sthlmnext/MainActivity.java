@@ -95,7 +95,8 @@ public class MainActivity extends FragmentActivity implements
         
         // Location based stuff 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 10.0f, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10.0f, this);
         refreshStations();
     }
     
@@ -203,6 +204,13 @@ public class MainActivity extends FragmentActivity implements
     public void onPause() {
     	locationManager.removeUpdates(this);
     	super.onPause();
+    }
+    
+    @Override
+    public void onResume() {
+    	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 10.0f, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10.0f, this);
+        super.onResume();
     }
     
     public void refreshStations() {
